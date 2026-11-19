@@ -1,8 +1,9 @@
 # Contributing
 
 Run `python -m pytest -q`, `python -m protomaml smoke`, and `python -m build`.
-Preserve first-order update semantics and separate training/evaluation pools.
-Changes to adaptation or episode construction need regression coverage.
-Keep data, results, weights, manuscript files, and credentials out of Git.
-The existing LICENSE governs reuse and distribution. Cite the complete paper
-author list; describe actual software contributions separately.
+Keep pull requests focused and describe the changed behavior and validation.
+
+Preserve first-order update semantics and independent training/evaluation pools.
+Changes to adaptation or episode construction should include regression coverage
+using synthetic inputs. Retain attribution and the complete paper citation.
+See [LICENSE](LICENSE) for terms of use.

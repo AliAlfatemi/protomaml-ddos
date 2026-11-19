@@ -40,18 +40,13 @@ pool. Both classes need at least `k_shot + q_query` rows in each pool; the
 release rejects undersized pools instead of sampling overlapping examples.
 
 The command writes local weights, fitted scaler, metadata, and episode metrics.
-Output directories must be new. Inputs, model weights, results, and manuscript
-files are excluded from Git. See `--help` for adaptation and seed controls.
+Output directories must be new. See `--help` for adaptation and seed controls.
 
-## Method and release scope
+## Method
 
-The retained learner uses a copied model for support adaptation and transfers
+The learner uses a copied model for support adaptation and transfers
 query gradients back to the initial model for a **first-order** update. It does
 not differentiate through the complete inner optimization trajectory.
-The release adds packaging, a train-only scaling path, and disjoint episode
-validation. It does not claim that synthetic checks reproduce published results.
-The historical globally fitted scaler and replacement-based episode fallback
-are not used by the command. Real-data protocol replication remains separate.
 
 ## Development
 
@@ -68,5 +63,4 @@ inputs. See [CONTRIBUTING.md](CONTRIBUTING.md).
 
 [CITATION.cff](CITATION.cff) preserves the published paper's complete author
 order. Paper authorship and software contribution credit are distinct.
-The original restrictive [LICENSE](LICENSE) is preserved; public source
-availability does not grant additional reuse permissions.
+See [LICENSE](LICENSE) for terms of use.
