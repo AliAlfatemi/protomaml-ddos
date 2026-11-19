@@ -1,25 +1,28 @@
 cff-version: 1.2.0
-message: "If you use this implementation, please cite the accompanying paper."
+message: If you use this implementation, please cite the accompanying paper.
 type: software
-title: "protomaml-ddos"
+title: protomaml-ddos
 authors:
-  - name: "Research software contributors"
+- name: Research software contributors
 version: 0.1.0
-url: "https://github.com/AliAlfatemi/protomaml-ddos"
+url: https://github.com/AliAlfatemi/protomaml-ddos
 preferred-citation:
-  type: article
-  title: "ProtoMAML: A Hybrid Meta-Learning Approach Integrating Prototypical Networks for Data-Efficient DDoS Attack Detection"
-  doi: "10.1109/IWCMC65282.2025.11059701"
+  type: conference-paper
+  title: 'ProtoMAML: A Hybrid Meta-Learning Approach Integrating Prototypical Networks for Data-Efficient
+    DDoS Attack Detection'
+  doi: 10.1109/IWCMC65282.2025.11059701
   authors:
-    - family-names: "Alfatemi"
-      given-names: "Ali"
-    - family-names: "Rahouti"
-      given-names: "Mohamed"
-    - family-names: "Bhuiyan"
-      given-names: "Zakirul Alam"
-    - family-names: "Solyman"
-      given-names: "Aiman"
-    - family-names: "Aledhari"
-      given-names: "Mohammed"
+  - family-names: Alfatemi
+    given-names: Ali
+  - family-names: Rahouti
+    given-names: Mohamed
+  - family-names: Bhuiyan
+    given-names: Zakirul Alam
+  - family-names: Solyman
+    given-names: Aiman
+  - family-names: Aledhari
+    given-names: Mohammed
   year: 2025
-  journal: "2025 International Wireless Communications and Mobile Computing (IWCMC)"
+  collection-title: 2025 International Wireless Communications and Mobile Computing (IWCMC)
+  start: 1144
+  end: 1149
