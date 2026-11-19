@@ -11,10 +11,12 @@ Defines the ProtoMAMLNet, a simple feedforward embedding model.
 import torch.nn as nn
 import torch.nn.functional as F
 
+
 class ProtoMAMLNet(nn.Module):
     """
     Simple feedforward network to produce embeddings for few-shot classification.
     """
+
     def __init__(self, input_dim, embed_dim=32):
         super().__init__()
         self.fc1 = nn.Linear(input_dim, 64)

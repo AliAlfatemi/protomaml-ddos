@@ -12,11 +12,13 @@ import numpy as np
 import torch
 from torch.utils.data import Dataset
 
+
 class EpisodeDataset(Dataset):
     """
     Creates episodes for a 2-class few-shot scenario (BENIGN vs DDoS).
     Each __getitem__ returns (support_x, support_y, query_x, query_y).
     """
+
     def __init__(self, X, y, episodes=1000, k_shot=5, q_query=5):
         """
         Args:
@@ -57,7 +59,7 @@ class EpisodeDataset(Dataset):
           query_y_t:   shape [2*q_query]
         """
         support_x_list, support_y_list = [], []
-        query_x_list,   query_y_list   = [], []
+        query_x_list, query_y_list = [], []
 
         for class_label in [0, 1]:
             indices = self.indices_by_class[class_label]
@@ -69,24 +71,24 @@ class EpisodeDataset(Dataset):
             else:
                 chosen = np.random.choice(indices, size=needed, replace=False)
 
-            s_idx = chosen[:self.k_shot]
-            q_idx = chosen[self.k_shot:]
+            s_idx = chosen[: self.k_shot]
+            q_idx = chosen[self.k_shot :]
 
             support_x_list.append(self.X[s_idx])
-            support_y_list.append([class_label]*self.k_shot)
+            support_y_list.append([class_label] * self.k_shot)
 
             query_x_list.append(self.X[q_idx])
-            query_y_list.append([class_label]*self.q_query)
+            query_y_list.append([class_label] * self.q_query)
 
         support_x = np.concatenate(support_x_list, axis=0)
         support_y = np.concatenate(support_y_list, axis=0)
-        query_x   = np.concatenate(query_x_list, axis=0)
-        query_y   = np.concatenate(query_y_list, axis=0)
+        query_x = np.concatenate(query_x_list, axis=0)
+        query_y = np.concatenate(query_y_list, axis=0)
 
         # Convert to tensors
         support_x_t = torch.tensor(support_x, dtype=torch.float)
         support_y_t = torch.tensor(support_y, dtype=torch.long)
-        query_x_t   = torch.tensor(query_x,   dtype=torch.float)
-        query_y_t   = torch.tensor(query_y,   dtype=torch.long)
+        query_x_t = torch.tensor(query_x, dtype=torch.float)
+        query_y_t = torch.tensor(query_y, dtype=torch.long)
 
         return support_x_t, support_y_t, query_x_t, query_y_t

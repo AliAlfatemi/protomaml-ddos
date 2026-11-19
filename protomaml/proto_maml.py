@@ -9,9 +9,11 @@ Defines the inner_update (fast adaptation) and meta_train_proto_maml (outer loop
 """
 
 import copy
+
 import torch
 import torch.nn as nn
 import torch.optim as optim
+
 
 def inner_update(model, support_x, support_y, lr_inner, steps):
     """
@@ -47,7 +49,7 @@ def inner_update(model, support_x, support_y, lr_inner, steps):
             emb_c = emb_supp[support_y == c]
             if emb_c.size(0) > 0:
                 proto_c = prototypes[c]
-                proto_consistency += ((emb_c - proto_c)**2).mean()
+                proto_consistency += ((emb_c - proto_c) ** 2).mean()
         proto_consistency /= 2.0
 
         # 4) Distance-based classification on support
@@ -62,13 +64,9 @@ def inner_update(model, support_x, support_y, lr_inner, steps):
 
     return new_model
 
+
 def meta_train_proto_maml(
-    model,
-    train_loader,
-    outer_optimizer,
-    lr_inner=1e-2,
-    steps_inner=1,
-    episodes=1000
+    model, train_loader, outer_optimizer, lr_inner=1e-2, steps_inner=1, episodes=1000
 ):
     """
     Outer loop:
@@ -78,23 +76,23 @@ def meta_train_proto_maml(
     model.train()
     all_losses, all_accs = [], []
 
-    for episode_i, (support_x, support_y, query_x, query_y) in enumerate(train_loader, start=1):
+    for episode_i, (support_x, support_y, query_x, query_y) in enumerate(
+        train_loader, start=1
+    ):
         # Squeeze out the batch dimension
         support_x = support_x.squeeze(0)
         support_y = support_y.squeeze(0)
-        query_x   = query_x.squeeze(0)
-        query_y   = query_y.squeeze(0)
+        query_x = query_x.squeeze(0)
+        query_y = query_y.squeeze(0)
 
         # 1) Adapt the model on support
         adapted_model = inner_update(
-            model, support_x, support_y,
-            lr_inner=lr_inner,
-            steps=steps_inner
+            model, support_x, support_y, lr_inner=lr_inner, steps=steps_inner
         )
 
         # 2) Evaluate on query
         emb_query = adapted_model(query_x)
-        emb_supp  = adapted_model(support_x)
+        emb_supp = adapted_model(support_x)
 
         # Compute prototypes
         prototypes = []
@@ -113,7 +111,9 @@ def meta_train_proto_maml(
 
         # Outer update
         outer_optimizer.zero_grad()
-        grads = torch.autograd.grad(query_loss, adapted_model.parameters(), retain_graph=False)
+        grads = torch.autograd.grad(
+            query_loss, adapted_model.parameters(), retain_graph=False
+        )
         for param, g in zip(model.parameters(), grads):
             param.grad = g
         outer_optimizer.step()
